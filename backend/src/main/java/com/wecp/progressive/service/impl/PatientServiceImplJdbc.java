@@ -16,26 +16,29 @@ public class PatientServiceImplJdbc implements PatientService {
     }
 
     @Override
-    public Integer addPatient(Patient patient) {
-        try {
-            Integer id = patientDAO.addPatient(patient);
-            return id;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
+    public Integer addPatient(Patient patient) throws Exception {
+        Integer id = patientDAO.addPatient(patient);
+        return id;
+        // try {
+        // Integer id = patientDAO.addPatient(patient);
+        // return id;
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // }
+        // return 0;
     }
 
     @Override
-    public void deletePatient(int patientId) {
+    public void deletePatient(int patientId) throws Exception {
         // TODO Auto-generated method stub
         // PatientService.super.deletePatient(patientId);
+        // patientDAO.deletePatient(patientId);
         try {
             patientDAO.deletePatient(patientId);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     @Override
@@ -45,47 +48,51 @@ public class PatientServiceImplJdbc implements PatientService {
     }
 
     @Override
-    public List<Patient> getAllPatientSortedByName() {
-        // TODO Auto-generated method stub
-        return List.of();
+    public List<Patient> getAllPatientSortedByName() throws Exception {
+        return patientDAO.getAllPatientsSortedByName();
     }
 
     @Override
-    public List<Patient> getAllPatients() {
+    public List<Patient> getAllPatients() throws Exception {
         // TODO Auto-generated method stub
-        
-        try {
-            List<Patient> list = patientDAO.getAllPatients();
+        List<Patient> list = patientDAO.getAllPatients();
         return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return List.of();
+
+        // try {
+        // List<Patient> list = patientDAO.getAllPatients();
+        // return list;
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // }
+        // return List.of();
     }
 
     @Override
-    public Patient getPatientById(int patientId) {
+    public Patient getPatientById(int patientId) throws Exception {
         // TODO Auto-generated method stub
         // return PatientService.super.getPatientById(patientId);
-        try {
-            Patient p = patientDAO.getPatientById(patientId);
+        Patient p = patientDAO.getPatientById(patientId);
         return p;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        // try {
+        // Patient p = patientDAO.getPatientById(patientId);
+        // return p;
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // }
+        // return null;
     }
 
     @Override
-    public void updatePatient(Patient patient) {
+    public void updatePatient(Patient patient) throws Exception {
         // TODO Auto-generated method stub
         // PatientService.super.updatePatient(patient);
-        
-        try {
-            patientDAO.updatePatient(patient);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        patientDAO.updatePatient(patient);
+
+        // try {
+        // patientDAO.updatePatient(patient);
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // }
     }
 
 }
