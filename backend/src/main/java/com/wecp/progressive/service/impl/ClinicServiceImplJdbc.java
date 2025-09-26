@@ -59,7 +59,7 @@ public class ClinicServiceImplJdbc implements ClinicService {
     }
 
     @Override
-    public void updateClinic(Clinic clinic)  {
+    public void updateClinic(Clinic clinic) throws SQLException {
         try {
             clinicDAO.updateClinic(clinic);
         } catch (Exception e) {
