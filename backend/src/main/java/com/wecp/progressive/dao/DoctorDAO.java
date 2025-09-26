@@ -11,4 +11,6 @@ public interface DoctorDAO {
     void updateDoctor(Doctor doctor) throws SQLException;
     void deleteDoctor(int doctorId) throws SQLException;
     List<Doctor> getAllDoctors() throws SQLException;
+    List<Doctor> getAllDoctorsSortedByName() throws SQLException;
+
 }
