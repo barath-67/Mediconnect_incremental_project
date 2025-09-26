@@ -1,6 +1,7 @@
 package com.wecp.progressive.service.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.wecp.progressive.dao.DoctorDAO;
@@ -16,26 +17,29 @@ public class DoctorServiceImplJdbc implements DoctorService  {
     }
 
     @Override
-    public Integer addDoctor(Doctor doctor) {
-        
-        try {
-            Integer id = doctorDAO.addDoctor(doctor);
-        return id;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
+    public Integer addDoctor(Doctor doctor) throws SQLException{
+        // System.out.println("Inside the doctor service-1");
+        return doctorDAO.addDoctor(doctor);
+        // System.out.println("Inside the doctor service-2");
+        // try {
+        //     Integer id = doctorDAO.addDoctor(doctor);
+        // return id;
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
+        // return -1;
     }
 
     @Override
-    public void deleteDoctor(int doctorId){
+    public void deleteDoctor(int doctorId) throws Exception{
         // TODO Auto-generated method stub
         // DoctorService.super.deleteDoctor(doctorId);
-        try {
-            doctorDAO.deleteDoctor(doctorId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        doctorDAO.deleteDoctor(doctorId);
+        // try {
+        //     doctorDAO.deleteDoctor(doctorId);
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
         
     }
 
@@ -46,44 +50,48 @@ public class DoctorServiceImplJdbc implements DoctorService  {
     }
 
     @Override
-    public List<Doctor> getAllDoctors() {
-        try {
-            List<Doctor> list = doctorDAO.getAllDoctors();
+    public List<Doctor> getAllDoctors() throws SQLException{
+        List<Doctor> list = new ArrayList<>();
+        list = doctorDAO.getAllDoctors();
+        // try {
+        //     list = doctorDAO.getAllDoctors();
+        // return list;
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
         return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return List.of();
     }
 
     @Override
-    public Doctor getDoctorById(int doctorId) {
+    public Doctor getDoctorById(int doctorId) throws Exception{
         // TODO Auto-generated method stub
         // return DoctorService.super.getDoctorById(doctorId);
-        try {
-            Doctor doc = doctorDAO.getDoctorById(doctorId);
+        Doctor doc = doctorDAO.getDoctorById(doctorId);
         return doc;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        // try {
+        //     Doctor doc = doctorDAO.getDoctorById(doctorId);
+        // return doc;
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
+        // return null;
     }
 
     @Override
-    public List<Doctor> getDoctorSortedByExperience() {
-        // TODO Auto-generated method stub
-        return List.of();
+    public List<Doctor> getDoctorSortedByExperience() throws Exception{
+        return doctorDAO.getAllDoctorsSortedByName();
     }
 
     @Override
-    public void updateDoctor(Doctor doctor) {
+    public void updateDoctor(Doctor doctor) throws Exception{
         // TODO Auto-generated method stub
         // DoctorService.super.updateDoctor(doctor);
-        try {
-            doctorDAO.updateDoctor(doctor);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        doctorDAO.updateDoctor(doctor);
+        // try {
+        //     doctorDAO.updateDoctor(doctor);
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
         
     }
 
