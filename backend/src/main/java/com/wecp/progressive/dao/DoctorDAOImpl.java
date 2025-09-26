@@ -15,16 +15,17 @@ public class DoctorDAOImpl implements DoctorDAO {
 
     @Override
     public int addDoctor(Doctor doctor) {
-        String query = "insert into doctor(full_name, specialty, contact_number, email, years_of_experience)";
+        String query = "insert into doctor(full_name, specialty, contact_number, email, years_of_experience) values(?, ?, ?, ?, ?)";
 
-        try (PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query,
-                Statement.RETURN_GENERATED_KEYS)) {
+        try {
+            PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query,
+                    Statement.RETURN_GENERATED_KEYS);
+
             ps.setString(1, doctor.getFullName());
             ps.setString(2, doctor.getSpecialty());
             ps.setString(3, doctor.getContactNumber());
             ps.setString(4, doctor.getEmail());
             ps.setInt(5, doctor.getYearsOfExperience());
-
             int count = ps.executeUpdate();
             if (count > 0) {
                 ResultSet rs = ps.getGeneratedKeys();
@@ -34,8 +35,7 @@ public class DoctorDAOImpl implements DoctorDAO {
                     return id;
                 }
             }
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return -1;
@@ -45,9 +45,13 @@ public class DoctorDAOImpl implements DoctorDAO {
     public void deleteDoctor(int doctorId) throws SQLException {
         String query = "delete from doctor where doctor_id = ?";
 
-        try (PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query)) {
+        try {
+            PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query);
             ps.setInt(1, doctorId);
             ps.executeUpdate();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
         }
 
     }
@@ -56,11 +60,15 @@ public class DoctorDAOImpl implements DoctorDAO {
     public List<Doctor> getAllDoctors() throws SQLException {
         String query = "select * from doctor";
         List<Doctor> doctors = new ArrayList<>();
-        try (Statement ps = DatabaseConnectionManager.getConnection().createStatement()) {
+        try {
+            Statement ps = DatabaseConnectionManager.getConnection().createStatement();
             ResultSet rs = ps.executeQuery(query);
             while (rs.next()) {
                 doctors.add(mapper(rs));
             }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
         }
         return doctors;
     }
@@ -69,12 +77,16 @@ public class DoctorDAOImpl implements DoctorDAO {
     public Doctor getDoctorById(int doctorId) throws SQLException {
         String query = "select * from doctor where doctor_id = ?";
 
-        try (PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query)) {
+        try {
+            PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query);
             ps.setInt(1, doctorId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return mapper(rs);
             }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
         }
         return null;
     }
@@ -83,7 +95,8 @@ public class DoctorDAOImpl implements DoctorDAO {
     public void updateDoctor(Doctor doctor) throws SQLException {
         String query = "update doctor set full_name = ?, specialty = ?, contact_number = ?, email = ?, years_of_experience = ? where doctor_id = ?";
 
-        try (PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query)) {
+        try {
+            PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query);
             ps.setString(1, doctor.getFullName());
             ps.setString(2, doctor.getSpecialty());
             ps.setString(3, doctor.getContactNumber());
@@ -93,7 +106,29 @@ public class DoctorDAOImpl implements DoctorDAO {
 
             ps.executeUpdate();
         }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
 
+    }
+
+    
+
+    @Override
+    public List<Doctor> getAllDoctorsSortedByName() throws SQLException {
+        String query = "select * from doctor order by full_name";
+        List<Doctor> doctors = new ArrayList<>();
+        try {
+            Statement ps = DatabaseConnectionManager.getConnection().createStatement();
+            ResultSet rs = ps.executeQuery(query);
+            while (rs.next()) {
+                doctors.add(mapper(rs));
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return doctors;
     }
 
     public Doctor mapper(ResultSet rs) throws SQLException {
