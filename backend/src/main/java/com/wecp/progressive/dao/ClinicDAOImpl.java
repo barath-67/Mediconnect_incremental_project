@@ -14,10 +14,11 @@ import com.wecp.progressive.entity.Doctor;
 public class ClinicDAOImpl implements ClinicDAO {
 
     @Override
-    public int addClinic(Clinic clinic)  {
+    public int addClinic(Clinic clinic) throws SQLException {
         String query = "insert into clinic(clinic_name, location, doctor_id, contact_number, established_year) values(?, ?, ?, ?, ?)";
 
-        try (PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+        try {
+            PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, clinic.getClinicName());
             ps.setString(2, clinic.getLocation());
             ps.setInt(3, clinic.getDoctorId());
@@ -45,9 +46,13 @@ public class ClinicDAOImpl implements ClinicDAO {
     public void deleteClinic(int clinicId) throws SQLException {
         String query = "delete from clinic where clinic_id = ?";
 
-        try(PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query)){
+        try{
+            PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query);
             ps.setInt(1, clinicId);
             ps.executeUpdate();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
         }
     }
 
