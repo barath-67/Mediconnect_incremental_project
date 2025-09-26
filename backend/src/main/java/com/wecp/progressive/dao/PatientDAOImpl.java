@@ -29,9 +29,10 @@ public class PatientDAOImpl implements PatientDAO {
         
         String query = "insert into patient(full_name, date_of_birth, contact_number, email, address) values(?, ?, ?, ?, ?)";
 
-        try(PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query, java.sql.Statement.RETURN_GENERATED_KEYS)){
+        try{
+            PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query, java.sql.Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, patient.getFullName());
-            ps.setDate(2, (Date) patient.getDateOfBirth());
+            ps.setDate(2, new java.sql.Date(patient.getDateOfBirth().getTime()));
             ps.setString(3, patient.getContactNumber());
             ps.setString(4, patient.getEmail());
             ps.setString(5, patient.getAddress());
@@ -45,6 +46,9 @@ public class PatientDAOImpl implements PatientDAO {
                     return id;
                 }
             }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
         }
         return -1;
     }
@@ -93,9 +97,10 @@ public class PatientDAOImpl implements PatientDAO {
     public void updatePatient(Patient patient) throws SQLException {
         String query = "update patient set full_name = ?, date_of_birth = ?, contact_number = ?, email = ?, address = ? where patient_id = ?";
 
-        try(PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query)){
+        try{
+            PreparedStatement ps = DatabaseConnectionManager.getConnection().prepareStatement(query);
             ps.setString(1, patient.getFullName());
-            ps.setDate(2, (Date) patient.getDateOfBirth());
+            ps.setDate(2, new java.sql.Date(patient.getDateOfBirth().getTime()));   //new java.sql.Date(utilDate.getTime())
             ps.setString(3, patient.getContactNumber());
             ps.setString(4, patient.getEmail());
             ps.setString(5, patient.getAddress());
@@ -103,7 +108,22 @@ public class PatientDAOImpl implements PatientDAO {
 
             ps.executeUpdate();
         }
-        
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public List<Patient> getAllPatientsSortedByName() throws SQLException {
+        String query = "select * from patient order by full_name";
+        List<Patient> li = new ArrayList<>();
+        try(Statement s = DatabaseConnectionManager.getConnection().createStatement()){
+            ResultSet rs = s.executeQuery(query);
+            
+            while(rs.next()){
+                li.add(mapper(rs));
+            }
+        }
+        return li;
     }
 
     public Patient mapper(ResultSet rs) throws SQLException{
