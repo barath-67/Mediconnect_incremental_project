@@ -11,7 +11,7 @@ public class Patient implements Comparable<Patient> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int patientId;
+    private Integer patientId;
     
     private String fullName;
     private Date dateOfBirth;
@@ -22,7 +22,7 @@ public class Patient implements Comparable<Patient> {
     public Patient() {
     }
     
-    public Patient(int patientId, String fullName, Date dateOfBirth, String contactNumber, String email,
+    public Patient(Integer patientId, String fullName, Date dateOfBirth, String contactNumber, String email,
             String address) {
         this.patientId = patientId;
         this.fullName = fullName;
@@ -32,20 +32,11 @@ public class Patient implements Comparable<Patient> {
         this.address = address;
     }
 
-    
-    public Patient(String fullName, Date dateOfBirth, String contactNumber, String email, String address) {
-        this.fullName = fullName;
-        this.dateOfBirth = dateOfBirth;
-        this.contactNumber = contactNumber;
-        this.email = email;
-        this.address = address;
-    }
-
-    public int getPatientId() {
+    public Integer getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(int patientId) {
+    public void setPatientId(Integer patientId) {
         this.patientId = patientId;
     }
 
