@@ -1,5 +1,6 @@
 package com.wecp.progressive.entity;
 
+<<<<<<< HEAD
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -86,4 +87,8 @@ public class Appointment {
         this.purpose = purpose;
     }
 
+=======
+public class Appointment {
+    
+>>>>>>> 8c17dc856accfe4856361a7028fee35b45fb1351
 }

@@ -1,5 +1,6 @@
 package com.wecp.progressive.service.impl;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,8 @@ public class AppointmentServiceImpl implements AppointmentService  {
 
         apr.save(ap);
     }
+=======
+public class AppointmentServiceImpl  {
+>>>>>>> 8c17dc856accfe4856361a7028fee35b45fb1351
 
 }
