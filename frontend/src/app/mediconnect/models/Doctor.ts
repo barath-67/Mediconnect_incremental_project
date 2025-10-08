@@ -1,4 +1,3 @@
-
 export class Doctor 
 {
     doctorId:number;
@@ -19,12 +18,12 @@ export class Doctor
     }
     logAttributes()
     {
-        console.log('doctorId:', this.doctorId);
-        console.log('fullName:', this.fullName);
-        console.log('contactNumber:', this.contactNumber);
-        console.log('email:', this.email);
-        console.log('specialty:', this.specialty);
-        console.log('yearsOfExperience:', this.yearsOfExperience);
-        
+        console.log('Doctor Details');
+        console.log('Doctor ID:' + this.doctorId);
+        console.log('Full Name:' + this.fullName);
+        console.log('Specialty:' + this.specialty);
+        console.log('Contact Number:' + this.contactNumber);
+        console.log('Email:' + this.email);
+        console.log('Years Of Experience:' + this.yearsOfExperience);
     }
 }

@@ -1,0 +1,15 @@
+
+POST https://ec2-3-110-211-72.projects.wecreateproblems.com/proxy/5000/
+Content-Type: application/json
+{
+  "username": "john_doe",
+  "password": "securePassword123",
+  "role": "PATIENT",
+  "fullName": "John Doe",
+  "contactNumber": "1234567890",
+  "email": "john.doe@example.com",
+  "address": "123 Main Street",
+  "dateOfBirth": "1990-01-01",
+  "specialty": "Cardiology",
+  "yearsOfExperience": 5
+}

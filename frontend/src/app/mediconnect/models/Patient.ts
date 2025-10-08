@@ -6,6 +6,7 @@ export class Patient
     contactNumber:string;
     email:string;
     address:string;
+    
     constructor(patientId:number, fullName:string, dateOfBirth:Date,contactNumber:string, email:string, address:string)
     {
         this.patientId=patientId;
@@ -15,13 +16,15 @@ export class Patient
         this.email=email;
         this.address=address;
     }
+    
     logAttributes()
     {
-        console.log('patientId:', this.patientId);
-        console.log('fullName:', this.fullName);
-        console.log('dateOfBirth:', this.dateOfBirth);
-        console.log('contactNumber:', this.contactNumber);
-        console.log('email:', this.email);
-        console.log('address:', this.address);
+        console.log('Patient Details');
+        console.log('Patient ID:' + this.patientId);
+        console.log('Full Name:' + this.fullName);
+        console.log('Date Of Birth:' + (this.dateOfBirth instanceof Date ? this.dateOfBirth.toISOString().split('T')[0] : this.dateOfBirth));
+        console.log('Contact Number:' + this.contactNumber);
+        console.log('Email:' + this.email);
+        console.log('Address:' + this.address);
     }
 }
